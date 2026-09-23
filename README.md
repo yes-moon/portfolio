@@ -119,6 +119,12 @@ sb.add_matrix("만족도 평가", rows=["품질", "가격", "서비스"], choice
 
 ### 📊 조사 현황 대시보드 시안
 
+<p align="center">
+  <img src="03_survey-dashboard-design-krds/docs/dashboard_univ.png" width="49%">
+  <img src="03_survey-dashboard-design-krds/docs/dashboard_alt.png" width="49%">
+</p>
+<p align="center"><sub>대학 조사용(라이트) · 다크 테마 대안. 기관명·조사명은 가상 값</sub></p>
+
 행정 표준 톤의 격자 통계표와 바 차트 화면 시안. **정적 시안이라 소스를 그대로 두었다.**
 
 `HTML` `CSS` `Pretendard`
@@ -130,6 +136,11 @@ sb.add_matrix("만족도 평가", rows=["품질", "가격", "서비스"], choice
 
 녹음 파일을 받아쓰고 화자를 나눈 뒤 회의록으로 정리하고, 그 내용에 **질문까지 할 수 있는** 도구.
 회의 내용이 외부 API로 나가면 안 된다는 요구사항이 있어 **전 과정을 로컬에서** 돌린다.
+
+<p align="center">
+  <img src="04_meeting-minutes-ai/docs/app_screen.png" width="80%">
+</p>
+<p align="center"><sub>상단 우측에 <b>외부 전송 없음 · 127.0.0.1</b> 상태를 항상 띄워, 녹음이 밖으로 나가지 않는다는 것을 쓰는 사람이 확인할 수 있게 했다.</sub></p>
 
 ```
 녹음 파일 ─→ Whisper STT ─→ 화자 분리 ─→ 로컬 LLM 회의록
@@ -187,7 +198,7 @@ return 135.0                                          # 현행 KST
   <sub>데이터 모델 · 환류관리 상세설계 · 요구사항 대응표 · 화면 목록 · 시연 대본</sub>
 - 카드뉴스 렌더 결과 60장
 - 일러스트 시안 SVG 107점
-- 정적 화면 시안 (KRDS 대시보드)
+- 정적 화면 시안 (KRDS 대시보드) + 렌더 화면 4장
 - [대표 코드 발췌 6종](docs/코드-발췌.md)
 
 </td><td>
