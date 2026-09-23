@@ -1,0 +1,190 @@
+/* ==========================================================================
+   [논문통계브랜드] 설문 서비스 — 디자인 토큰 + 공통 컴포넌트 (시안 v2, 2026-09-19)
+   계보: [A대학교] 통합조사 플랫폼 tokens/components/layout.css (클로드 티 제거 규칙 승계)
+   글꼴: Pretendard Variable 단일 패밀리(셀프호스팅, OFL) — 왈라·오픈서베이·사이트(statsbrand)와 동일 계열
+   브랜드: [논문통계브랜드] 네이비 #1E3A5F (사이트 primary) / 레드는 danger 전용
+   규칙: HEX는 이 파일에서만. 둥근 카드(>8px)·틴트 뱃지·이모지·아이콘 칩 금지.
+   ========================================================================== */
+
+
+@font-face { font-family: "Pretendard Variable"; font-weight: 45 920; font-style: normal; font-display: swap; src: url("../fonts/PretendardVariable.woff2") format("woff2-variations"); }
+
+:root {
+  /* 브랜드 네이비 */
+  --navy-50:  #EEF2F7;
+  --navy-100: #D8E0EA;
+  --navy-200: #B2C2D5;
+  --navy-300: #7F98B6;
+  --navy-400: #4D6F95;
+  --navy-500: #2E5078;
+  --navy-600: #24446B;
+  --navy-700: #1E3A5F; /* 사이트 primary */
+  --navy-800: #182F4D;
+  --navy-900: #10213A;
+
+  /* Danger 전용 */
+  --red-50:  #FAEDE9;
+  --red-600: #A53017;
+  --red-700: #8C2812;
+
+  /* 그레이 (KRDS 계열) */
+  --gray-0:   #FFFFFF;
+  --gray-50:  #F7F8FA;
+  --gray-100: #F1F3F5;
+  --gray-200: #E6E8EA;
+  --gray-300: #D1D5D9;
+  --gray-400: #B1B8BE;
+  --gray-500: #8A949E;
+  --gray-600: #6D7882;
+  --gray-700: #464C53;
+  --gray-800: #33383E;
+  --gray-900: #1E2124;
+
+  /* 시맨틱 */
+  --bg: var(--gray-50);
+  --surface: var(--gray-0);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --text: var(--gray-900);
+  --text-sub: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --text-invert: var(--gray-0);
+  --primary: var(--navy-700);
+  --gnb-bg: var(--navy-900);
+
+  /* 데이터 색 — 단일 계열 + 강조 1색 */
+  --data: var(--navy-500);
+  --data-2: var(--navy-200);
+  --data-hi: var(--navy-700);
+  --data-low: var(--red-600);
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  --font-display: var(--font-sans); /* 단일 패밀리 — 제목은 굵기·자간으로만 구분 */
+
+  --fs-caption: 12px; --fs-small: 13px; --fs-body: 14px; --fs-lead: 16px;
+  --fs-h3: 17px; --fs-h2: 19px; --fs-h1: 22px; --fs-display: 28px;
+
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
+  --radius-sm: 4px; --radius-md: 6px;
+  --shadow-sm: 0 1px 2px rgba(30,33,36,.06);
+  --shadow-pressed: inset 0 1px 2px rgba(16,33,58,.30);
+  --layout-max: 1280px;
+  --gnb-h: 52px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: var(--fs-body); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.sub { color: var(--text-sub); }
+.muted { color: var(--text-muted); }
+.mono { font-family: ui-monospace, "SF Mono", Consolas, "Courier New", monospace; }
+
+/* --- GNB --- */
+.gnb { background: var(--gnb-bg); color: var(--text-invert); }
+.gnb-inner { max-width: var(--layout-max); margin: 0 auto; padding: 0 var(--sp-5); height: var(--gnb-h); display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.brand-sub { font-size: var(--fs-small); color: var(--navy-200); padding-left: 10px; border-left: 1px solid var(--navy-600); }
+.gnb-right { display: flex; align-items: center; gap: var(--sp-4); font-size: var(--fs-small); color: var(--navy-100); }
+
+/* --- 컨테이너 --- */
+.container { max-width: var(--layout-max); margin: 0 auto; padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+
+/* --- 페이지 헤더 --- */
+.page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-5); padding-bottom: var(--sp-4); border-bottom: 1px solid var(--border-strong); margin-bottom: var(--sp-4); }
+.page-head h1 { font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
+.page-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); margin-top: var(--sp-2); font-size: var(--fs-small); color: var(--text-sub); }
+.page-meta b { color: var(--text); font-weight: 600; }
+.head-tags { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+
+/* --- 뱃지(도장식 아웃라인) --- */
+.badge { display: inline-block; padding: 1px 8px; border: 1px solid var(--gray-400); border-radius: 0; background: var(--surface); color: var(--gray-700); font-size: var(--fs-caption); font-weight: 600; line-height: 1.7; white-space: nowrap; }
+.badge--primary { border-color: var(--navy-700); color: var(--navy-700); }
+.badge--danger { border-color: var(--red-600); color: var(--red-600); }
+
+/* --- 버튼(입체) --- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-1); height: 36px; padding: 0 var(--sp-4); border: 1px solid var(--navy-800); border-radius: var(--radius-sm); background: linear-gradient(to bottom, var(--navy-600), var(--navy-700)); color: var(--text-invert); font-family: var(--font-sans); font-size: var(--fs-body); font-weight: 600; line-height: 1; box-shadow: var(--shadow-sm); cursor: pointer; white-space: nowrap; }
+.btn:active { box-shadow: var(--shadow-pressed); }
+.btn--secondary { border-color: var(--gray-300); background: linear-gradient(to bottom, var(--gray-0), var(--gray-100)); color: var(--gray-800); }
+.btn--ghost { border-color: var(--navy-500); background: transparent; color: var(--gray-0); box-shadow: none; }
+.btn--sm { height: 30px; padding: 0 var(--sp-3); font-size: var(--fs-small); }
+
+/* --- 알림(문서식) --- */
+.alert { padding: var(--sp-3) var(--sp-4); border: 1px solid var(--border); border-left: 3px solid var(--gray-500); border-radius: 0; background: var(--surface); font-size: var(--fs-body); }
+.alert--info { border-left-color: var(--navy-600); }
+.alert b { color: var(--navy-700); }
+
+/* --- 코드박스(URL) --- */
+.codebox { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--sp-3); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--gray-50); font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: var(--fs-small); color: var(--gray-800); }
+
+/* --- 패널 --- */
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.panel-head { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border); }
+.panel-head h2 { font-size: var(--fs-h3); font-weight: 600; }
+.panel-head .sub { font-size: var(--fs-small); }
+.panel-body { padding: var(--sp-4); }
+.panel-body--flush { padding: 0; }
+
+/* --- 통계 스트립 --- */
+.stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat-cell { padding: var(--sp-4) var(--sp-5); border-right: 1px solid var(--border); }
+.stat-cell:last-child { border-right: 0; }
+.stat-label { font-size: var(--fs-small); color: var(--text-sub); }
+.stat-num { margin-top: 2px; font-size: var(--fs-display); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary); line-height: 1.3; letter-spacing: -0.01em; }
+.stat-num .unit { font-size: var(--fs-body); font-weight: 400; color: var(--text-sub); margin-left: 2px; }
+.stat-sub { margin-top: 4px; font-size: var(--fs-small); color: var(--text-sub); }
+.stat-sub b { color: var(--text); font-weight: 600; }
+
+/* --- 진행바(사각, 얇게) --- */
+.bar { position: relative; height: 6px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
+.bar > i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--data); border-radius: 2px; }
+.bar--thin { height: 4px; }
+
+/* --- 데이터 테이블 --- */
+.data-table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: var(--fs-body); }
+.data-table th { padding: 9px var(--sp-3); background: var(--gray-50); color: var(--gray-700); font-weight: 600; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; font-size: var(--fs-small); }
+.data-table td { padding: 9px var(--sp-3); border-bottom: 1px solid var(--gray-100); color: var(--text); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: 0; }
+.data-table .r { text-align: right; }
+.data-table .c { text-align: center; }
+.data-table .w-num { width: 64px; }
+
+/* --- KV 테이블 --- */
+.kv { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
+.kv th { text-align: left; width: 112px; padding: 8px var(--sp-2); color: var(--text-sub); font-weight: 500; border-bottom: 1px solid var(--gray-100); }
+.kv td { padding: 8px var(--sp-2); border-bottom: 1px solid var(--gray-100); }
+.kv tr:last-child th, .kv tr:last-child td { border-bottom: 0; }
+
+/* --- 스택 바(5점 척도, 단일 계열 순차) --- */
+.stack { display: flex; height: 14px; gap: 2px; }
+.stack > i { display: block; height: 100%; border-radius: 2px; }
+.stack .s1 { background: var(--navy-100); }
+.stack .s2 { background: var(--navy-200); }
+.stack .s3 { background: var(--navy-300); }
+.stack .s4 { background: var(--navy-500); }
+.stack .s5 { background: var(--navy-700); }
+.legend { display: flex; gap: var(--sp-3); font-size: var(--fs-caption); color: var(--text-sub); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
+
+/* --- 가로 막대 목록 --- */
+.hbars { display: grid; grid-template-columns: 96px 1fr 56px; gap: 6px var(--sp-3); align-items: center; font-size: var(--fs-small); }
+.hbars .lbl { color: var(--text-sub); }
+.hbars .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* --- 레이아웃 그리드 --- */
+.grid { display: grid; gap: var(--sp-4); }
+.grid--2 { grid-template-columns: 1fr 1fr; }
+.grid--3-2 { grid-template-columns: 3fr 2fr; }
+.grid--2-1 { grid-template-columns: 2fr 1fr; }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-5 { margin-top: var(--sp-5); }
+
+/* --- SVG 차트 --- */
+.axis { fill: var(--text-muted); font-size: 11px; font-family: var(--font-sans); }
+.gridline { stroke: var(--gray-200); stroke-width: 1; }
+.val-lbl { fill: var(--text); font-size: 12px; font-weight: 600; font-family: var(--font-sans); }
+
+/* --- 푸터 --- */
+.page-foot { display: flex; justify-content: space-between; margin-top: var(--sp-5); padding-top: var(--sp-3); border-top: 1px solid var(--border); font-size: var(--fs-caption); color: var(--text-muted); }

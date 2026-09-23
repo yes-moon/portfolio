@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <!-- [A대학교] 서베이 일러스트 예시안 ② 응답 완료 (1:1) — 잉크 #0A336F / 강조 #00643D / 면 #D9E2F0 -->
+
+  <!-- 배경 원판 -->
+  <circle cx="300" cy="300" r="205" fill="#D9E2F0"/>
+
+  <!-- 비행 궤적 (점선 루프) -->
+  <path d="M95 470 C 70 420, 130 395, 165 425 C 195 450, 175 495, 138 485 C 105 476, 118 428, 170 402 C 220 377, 260 360, 285 345"
+        fill="none" stroke="#0A336F" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 17"/>
+
+  <!-- 종이비행기 -->
+  <g transform="rotate(-10 340 290)">
+    <path d="M250 330 L470 225 L390 352 Z" fill="#FFFFFF" stroke="#0A336F" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M250 330 L342 318 L390 352 Z" fill="#D9E2F0" stroke="#0A336F" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M470 225 L342 318" fill="none" stroke="#0A336F" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- 완료 체크 뱃지 -->
+  <circle cx="428" cy="428" r="36" fill="#00643D" stroke="#0A336F" stroke-width="6"/>
+  <path d="M411 428 L424 442 L447 414" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 반짝임 (초록 4각 별 + 십자) -->
+  <path d="M452 128 L457 148 L477 153 L457 158 L452 178 L447 158 L427 153 L447 148 Z" fill="#00643D"/>
+  <path d="M168 200 L171 213 L184 216 L171 219 L168 232 L165 219 L152 216 L165 213 Z" fill="#00643D"/>
+  <g stroke="#00643D" stroke-width="6" stroke-linecap="round">
+    <line x1="520" y1="300" x2="520" y2="324"/><line x1="508" y1="312" x2="532" y2="312"/>
+  </g>
+  <circle cx="218" cy="112" r="7" fill="none" stroke="#0A336F" stroke-width="5"/>
+</svg>

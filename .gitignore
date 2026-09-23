@@ -1,0 +1,29 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+desktop.ini
+.vscode/
+.idea/
+
+# secrets & local config
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+
+# runtime / data
+__pycache__/
+*.pyc
+node_modules/
+vendor/
+target/
+*.log
+*.sav
+*.sqlite
+*.db
+data/
+uploads/
+
+# local-only session info (device name etc.)
+CLAUDE.local.md

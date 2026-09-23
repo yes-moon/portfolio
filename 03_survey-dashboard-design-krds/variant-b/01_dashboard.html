@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대시보드 — [브랜드C] 설문</title>
+<style>
+  @font-face { font-family: "Wanted Sans"; font-weight: 100 900; font-display: swap; src: url("fonts/WantedSansVariable.woff2") format("woff2-variations"); }
+  /* [브랜드C] 설문 — 다크 테마 · 좌측 사이드바 · 스카이블루 액센트 (company-bigdata.example.com 팔레트) */
+  :root {
+    --bg:#0A1628; --side:#070F1E; --panel:#0F2038; --panel-2:#13294A; --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.12);
+    --ink:#EEF3FA; --ink-2:#B9C6D8; --ink-3:#B9C6D8;
+    --sky:#0EA5E9; --sky-2:#38BDF8; --sky-3:#7DD3FC; --sky-dim:rgba(14,165,233,.18);
+    --ok:#34D399; --warn:#FBBF24;
+    --font:"Wanted Sans", "Malgun Gothic", sans-serif; --num:"Wanted Sans", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  h1,h2,h3,p { margin: 0; }
+  .num { font-family: var(--num); font-variant-numeric: tabular-nums; }
+
+  .app { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+
+  /* 사이드바 */
+  .side { background: var(--side); border-right: 1px solid var(--line); padding: 18px 14px; display: flex; flex-direction: column; }
+  .logo { display: flex; align-items: center; gap: 10px; padding: 4px 8px 18px; border-bottom: 1px solid var(--line); }
+  .logo .name { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; line-height: 1.15; }
+  .logo .name span { color: var(--sky-2); }
+  .logo .en { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .org { margin: 14px 8px 6px; font-size: 13.5px; color: var(--ink-2); }
+  .org b { display: block; color: var(--ink); font-weight: 500; font-size: 14px; margin-top: 2px; }
+  .nav { margin-top: 14px; display: flex; flex-direction: column; gap: 2px; }
+  .nav a { display: flex; align-items: center; justify-content: space-between; height: 38px; padding: 0 10px 0 12px; border-radius: 0; color: var(--ink-2); font-size: 14px; font-weight: 500; border-left: 2px solid transparent; }
+  .nav a.on { background: rgba(14,165,233,.10); color: var(--ink); border-left-color: var(--sky-2); }
+  .nav a .c { font-size: 13.5px; color: var(--ink-2); }
+  .side .spacer { flex: 1; }
+  .side .foot { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.7; }
+  .side .foot b { color: var(--ink-2); font-weight: 500; }
+
+  /* 메인 */
+  .main { padding: 22px 28px 40px; min-width: 0; }
+  .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+  .head h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .head .meta { margin-top: 6px; font-size: 14px; color: var(--ink-2); display: flex; gap: 14px; }
+  .head .meta b { color: var(--ink); font-weight: 500; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px; border-radius: 1px; font-size: 14px; font-weight: 600; border: 1px solid #06111F; background: linear-gradient(180deg, #1B3157, #12233F); color: var(--ink); white-space: nowrap; box-shadow: 0 1px 1px rgba(0,0,0,.35); }
+  .btn--sky { background: linear-gradient(180deg, #22B0EE, #0891CF); border-color: #0B7DB5; color: #fff; font-weight: 700; }
+  .btn .chev { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: .7; }
+  .head .r { display: flex; gap: 8px; }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 2px; }
+
+  /* 지표 스트립 (밑줄 선택형) */
+  .kpis { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 18px; }
+  .k { padding: 14px 16px 12px; border-right: 1px solid var(--line); border-bottom: 2px solid transparent; }
+  .k:last-child { border-right: 0; }
+  .k.on { border-bottom-color: var(--sky-2); }
+  .k .l { font-size: 14px; color: var(--ink-2); font-weight: 500; }
+  .k .v { margin-top: 6px; display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+  .k .v b { font-family: var(--num); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .k .v small { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .k .v .up { color: var(--ok); } .k .v .wn { color: var(--warn); }
+
+  .chart { padding: 14px 18px 8px; border-top: 1px solid var(--line); }
+  .chart-h { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .chart-h h2 { font-size: 15px; font-weight: 700; }
+  .lg { display: flex; gap: 16px; font-size: 13.5px; color: var(--ink-2); }
+  .lg i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+  .axis { fill: var(--ink-2); font-size: 13px; font-family: var(--font); }
+  .gl { stroke: rgba(255,255,255,.07); }
+
+  .grid3 { display: grid; grid-template-columns: 1.1fr 1fr 1.1fr; gap: 14px; margin-top: 14px; }
+  .ph { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+  .ph h2 { font-size: 15px; font-weight: 700; }
+  .ph .x { font-size: 13.5px; color: var(--ink-2); }
+  .pb { padding: 12px 18px 16px; }
+
+  /* 영역별 만족도 — 가로 막대 */
+  .hb { display: grid; grid-template-columns: 92px 1fr 46px; gap: 10px 12px; align-items: center; font-size: 14px; }
+  .hb .l { color: var(--ink); }
+  .hb .t { height: 12px; background: rgba(255,255,255,.06); position: relative; }
+  .hb .t i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--sky); }
+  .hb .t i.low { background: var(--warn); }
+  .hb .v { font-family: var(--num); font-weight: 600; text-align: right; }
+
+  /* 단과대별 응답률 — 표 */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-weight: 600; color: var(--ink-2); font-size: 13.5px; padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  .r { text-align: right; }
+  .rate { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+  .rate .t { width: 64px; height: 8px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .rate .t i { display: block; height: 100%; background: var(--sky-2); }
+
+  /* 문항 분포 — 스택 */
+  .qs { display: flex; flex-direction: column; gap: 12px; }
+  .q .t { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+  .q .t span:last-child { font-family: var(--num); font-weight: 600; color: var(--ink-2); }
+  .st { display: flex; height: 12px; gap: 1px; }
+  .st i { display: block; height: 100%; }
+  .s1{background:#1E3A5F}.s2{background:#1F5A8A}.s3{background:#1E7FB5}.s4{background:#0EA5E9}.s5{background:#7DD3FC}
+  .lg2 { display: flex; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+  .lg2 i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; vertical-align: -1px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#0369A1"/></linearGradient></defs>
+        <rect width="34" height="34" rx="9" fill="url(#dg)"/>
+        <path d="M17 7.5 L25 10.5 V17.5 C25 22.3 21.6 25.6 17 27 C12.4 25.6 9 22.3 9 17.5 V10.5 Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M13.5 17.2 L16 19.7 L20.8 14.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div><div class="name">[브랜드C]<span>AI</span></div><div class="en">설문 플랫폼</div></div>
+    </div>
+    <div class="org">기관<b>가온대학교 교육혁신원</b></div>
+    <nav class="nav">
+      <a class="on">대시보드</a>
+      <a>문항별 결과<span class="c">42</span></a>
+      <a>응답 데이터<span class="c">1,284</span></a>
+      <a>대상자 관리<span class="c">2,410</span></a>
+      <a>배포 채널</a>
+      <a>보고서</a>
+      <a>설정</a>
+    </nav>
+    <div class="spacer"></div>
+    <div class="foot"><b>온프레미스</b> · 교내 서버 구동<br>데이터 외부 전송 없음<br>v2.4 · [브랜드C]</div>
+  </aside>
+
+  <main class="main">
+    <div class="head">
+      <div>
+        <h1>2026학년도 재학생 교육만족도 조사</h1>
+        <div class="meta"><b>수집 중</b><span class="num">2026.10.01 – 10.31</span><span>대상 <b class="num">2,410</b>명</span><span>문항 <b class="num">42</b></span></div>
+      </div>
+      <div class="r">
+        <span class="btn">단과대 전체 <i class="chev"></i></span>
+        <span class="btn">기간 <i class="chev"></i></span>
+        <span class="btn btn--sky">보고서 생성</span>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div class="kpis">
+        <div class="k on"><div class="l">응답</div><div class="v"><b class="num">1,284</b><small>/ 2,410</small></div></div>
+        <div class="k"><div class="l">응답률</div><div class="v"><b class="num">53.3%</b><small class="up">+2.1%p</small></div></div>
+        <div class="k"><div class="l">오늘</div><div class="v"><b class="num">96</b><small class="up">+18</small></div></div>
+        <div class="k"><div class="l">완료율</div><div class="v"><b class="num">94.7%</b><small>/ 1,356</small></div></div>
+        <div class="k"><div class="l">종합 만족도</div><div class="v"><b class="num">3.86</b><small>/ 5</small></div></div>
+        <div class="k"><div class="l">응답률 최저 단과대</div><div class="v"><b class="num">38.1%</b><small class="wn">예술대학</small></div></div>
+      </div>
+      <div class="chart">
+        <div class="chart-h"><h2>일별 응답</h2><div class="lg"><span><i style="background:var(--sky)"></i>응답</span><span><i style="background:rgba(255,255,255,.18)"></i>목표 페이스</span></div></div>
+        <svg id="bars" width="100%" height="230" viewBox="0 0 1000 230" style="display:block"></svg>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="panel">
+        <div class="ph"><h2>영역별 만족도</h2><span class="x">5점 평균</span></div>
+        <div class="pb"><div class="hb" id="area"></div></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h2>단과대별 응답률</h2><span class="x">대상 대비</span></div>
+        <div class="pb">
+          <table><thead><tr><th>단과대학</th><th class="r">응답</th><th class="r">응답률</th></tr></thead><tbody id="col"></tbody></table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h2>개선 필요 문항</h2><span class="x">평균 하위 5</span></div>
+        <div class="pb">
+          <div class="qs" id="qs"></div>
+          <div class="lg2"><span><i class="s1"></i>매우 불만족</span><span><i class="s2"></i>불만족</span><span><i class="s3"></i>보통</span><span><i class="s4"></i>만족</span><span><i class="s5"></i>매우 만족</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function txt(e,s){e.textContent=s;return e;}
+  var css=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();};
+
+  /* 일별 막대 (10.01–10.19) + 목표 페이스 */
+  var d=[142,118,96,88,74,61,55,70,66,58,52,49,44,61,57,50,47,52,96];
+  var svg=document.getElementById('bars');
+  var W=1000,H=230,pl=36,pr=10,pt=16,pb=28,iw=W-pl-pr,ih=H-pt-pb,max=160,n=31;
+  [0,40,80,120,160].forEach(function(v){var y=pt+ih-(v/max)*ih;svg.appendChild(el('line',{x1:pl,x2:W-pr,y1:y,y2:y,'class':'gl'}));svg.appendChild(txt(el('text',{x:pl-8,y:y+4,'text-anchor':'end','class':'axis'}),v));});
+  var bw=iw/n, w=bw*0.62;
+  var pace=2410*0.6/31; var py=pt+ih-(pace/max)*ih;
+  svg.appendChild(el('line',{x1:pl,x2:W-pr,y1:py,y2:py,stroke:'rgba(255,255,255,.35)','stroke-width':1,'stroke-dasharray':'3 4'}));
+  for(var i=0;i<n;i++){var x=pl+i*bw+(bw-w)/2;
+    if(i<d.length){var h=(d[i]/max)*ih;svg.appendChild(el('rect',{x:x,y:pt+ih-h,width:w,height:h,rx:0,fill:i===d.length-1?css('--sky-2'):css('--sky')}));}
+    else{svg.appendChild(el('rect',{x:x,y:pt+ih-3,width:w,height:3,rx:0,fill:'rgba(255,255,255,.10)'}));}
+    if(i%5===0||i===n-1)svg.appendChild(txt(el('text',{x:x+w/2,y:H-8,'text-anchor':'middle','class':'axis'}),'10.'+String(i+1).padStart(2,'0')));
+  }
+  var lx=pl+18*bw+bw/2;svg.appendChild(txt(el('text',{x:lx,y:pt+ih-(96/max)*ih-8,'text-anchor':'middle','class':'axis',style:'fill:#EAF1FA;font-weight:700;font-size:13px'}),'96'));
+
+  /* 영역별 */
+  var area=[['교육과정',3.98],['교수·학습',4.07],['학생지원',3.71],['시설·환경',3.42],['행정서비스',3.66],['진로·취업',3.58],['비교과',3.90]];
+  var box=document.getElementById('area');
+  area.forEach(function(a){box.insertAdjacentHTML('beforeend','<div class="l">'+a[0]+'</div><div class="t"><i class="'+(a[1]<3.5?'low':'')+'" style="width:'+(a[1]/5*100)+'%"></i></div><div class="v num">'+a[1].toFixed(2)+'</div>');});
+
+  /* 단과대 */
+  var col=[['인문사회대학',412,238],['공과대학',586,341],['자연과학대학',298,172],['경영대학',377,204],['사범대학',241,149],['예술대학',236,90],['보건과학대학',260,105]];
+  var tb=document.getElementById('col');
+  col.forEach(function(c){var r=c[2]/c[1]*100;tb.insertAdjacentHTML('beforeend','<tr><td>'+c[0]+'</td><td class="r num">'+c[2]+'<span style="color:var(--ink-2)"> / '+c[1]+'</span></td><td class="r"><div class="rate"><span class="num" style="font-weight:600">'+r.toFixed(1)+'%</span><div class="t"><i style="width:'+r+'%"></i></div></div></td></tr>');});
+
+  /* 하위 문항 */
+  var qs=[['강의실·실습실 시설이 충분하다',[14,26,31,22,7],3.02],['학생식당 만족도',[12,24,33,24,7],2.90],['장학 제도 안내가 충분하다',[9,21,34,27,9],3.06],['행정 처리 절차가 간편하다',[8,20,35,28,9],3.10],['진로 상담 기회가 충분하다',[7,19,36,29,9],3.14]];
+  var qb=document.getElementById('qs');
+  qs.forEach(function(q){qb.insertAdjacentHTML('beforeend','<div class="q"><div class="t"><span>'+q[0]+'</span><span>'+q[2].toFixed(2)+'</span></div><div class="st">'+q[1].map(function(p,i){return '<i class="s'+(i+1)+'" style="width:'+p+'%"></i>';}).join('')+'</div></div>');});
+})();
+</script>
+</body>
+</html>

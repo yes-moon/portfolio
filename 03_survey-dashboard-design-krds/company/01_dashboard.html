@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>조사 현황 — Company 통합조사플랫폼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* [회사명] 통합조사플랫폼 — KRDS 행정시스템 문법. 로열블루 #2E6BFF, 격자 통계표, 도장식 표기, 입체 버튼 */
+  :root {
+    --blue:#2E6BFF; --blue-700:#1E52E0; --blue-900:#13294D; --navy:#0F2038; --gnb:#0A1628;
+    --red:#C8102E;
+    --g0:#FFFFFF; --g50:#F7F8FA; --g100:#F1F3F5; --g200:#E6E8EA; --g300:#D1D5D9; --g400:#B1B8BE; --g500:#8A949E; --g600:#6D7882; --g700:#464C53; --g900:#1E2124;
+    --font:"Noto Sans KR", "Malgun Gothic", sans-serif; --disp:"Noto Sans KR", "Malgun Gothic", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--g50); color: var(--g900); font-family: var(--font); font-size: 14.5px; line-height: 1.55; }
+  a { color: inherit; text-decoration: none; }
+  h1,h2,h3,p { margin: 0; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* GNB */
+  .gnb { background: var(--gnb); color: #fff; }
+  .gnb-in { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .gnb .brand { display: flex; align-items: center; gap: 12px; }
+  .gnb .brand img { height: 34px; width: auto; background: #fff; padding: 3px 5px; border-radius: 3px; }
+  .gnb .brand .t { font-size: 16px; font-weight: 700; }
+  .gnb .brand .t small { display: block; font-size: 11.5px; font-weight: 500; color: #9DB4E8; letter-spacing: .06em; }
+  .gnb .menu { display: flex; gap: 26px; font-size: 14px; font-weight: 500; color: #C9D4EA; }
+  .gnb .menu a.on { color: #fff; font-weight: 600; }
+  .gnb .user { font-size: 14px; color: #C9D4EA; }
+  .gnb .user b { color: #fff; font-weight: 600; }
+
+  /* SNB (수평, 흰 배경, 하단보더 active) */
+  .snb { background: #fff; border-bottom: 1px solid var(--g300); }
+  .snb-in { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; gap: 28px; }
+  .snb a { padding: 13px 0 11px; font-size: 14px; font-weight: 500; color: var(--g600); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .snb a.on { color: var(--blue-700); border-bottom-color: var(--blue); font-weight: 600; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 20px 24px 48px; }
+
+  /* 페이지 헤더 + 조회조건 */
+  .ph { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 12px; border-bottom: 2px solid var(--g900); }
+  .ph h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .ph .crumb { font-size: 13.5px; color: var(--g700); margin-bottom: 4px; }
+  .ph .crumb b { color: var(--g900); font-weight: 500; }
+  .stamp { display: inline-block; padding: 1px 8px; border: 1px solid var(--blue-700); color: var(--blue-700); font-size: 12px; font-weight: 600; line-height: 1.7; margin-left: 10px; vertical-align: 3px; }
+  .stamp--red { border-color: var(--red); color: var(--red); }
+
+  .cond { display: grid; grid-template-columns: 1fr auto; align-items: center; margin-top: 14px; background: #fff; border: 1px solid var(--g300); padding: 10px 14px; }
+  .cond .f { display: flex; gap: 18px; align-items: center; font-size: 14px; }
+  .cond label { color: var(--g700); margin-right: 6px; }
+  .sel { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px 0 12px; border: 1px solid var(--g400); background: #fff; font-size: 13.5px; color: var(--g900); min-width: 150px; justify-content: space-between; }
+  .sel .chev { width: 7px; height: 7px; border-right: 1.5px solid var(--g600); border-bottom: 1.5px solid var(--g600); transform: translateY(-2px) rotate(45deg); }
+  .btn { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border: 1px solid #0B2A7A; background: linear-gradient(to bottom, #3E7BFF, #2E6BFF); color: #fff; font-size: 13.5px; font-weight: 600; box-shadow: 0 1px 1px rgba(0,0,0,.12); white-space: nowrap; }
+  .btn--w { border-color: var(--g400); background: linear-gradient(to bottom, #fff, #F1F3F5); color: var(--g900); }
+  .cond .b { display: flex; gap: 6px; }
+
+  /* 요약 통계표 (격자) */
+  .sec { margin-top: 18px; }
+  .sec-h { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .sec-h h2 { font-size: 16px; font-weight: 700; padding-left: 10px; border-left: 4px solid var(--blue); line-height: 1.2; }
+  .sec-h .u { font-size: 13.5px; color: var(--g700); }
+  table.grid { width: 100%; border-collapse: collapse; background: #fff; font-size: 14px; border-top: 2px solid var(--blue-900); }
+  table.grid th { background: var(--g100); color: var(--g700); font-weight: 600; padding: 9px 10px; border: 1px solid var(--g300); text-align: center; }
+  table.grid td { padding: 9px 10px; border: 1px solid var(--g200); text-align: center; }
+  table.grid td.l, table.grid th.l { text-align: left; }
+  table.grid.info th { width: 96px; text-align: left; background: var(--g100); }
+  table.grid.info td { padding: 10px 12px; }
+  table.grid td.r { text-align: right; }
+  table.grid tr.sum td { background: #F4F7FF; font-weight: 600; }
+  table.grid td .low { color: var(--red); font-weight: 600; }
+  table.grid td .bar { display: inline-block; height: 10px; background: var(--blue); vertical-align: middle; margin-right: 6px; }
+
+  .kv { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: #fff; border: 1px solid var(--g300); border-top: 2px solid var(--blue-900); }
+  .kv > div { padding: 12px 16px; border-right: 1px solid var(--g200); }
+  .kv > div:last-child { border-right: 0; }
+  .kv .l { font-size: 13px; color: var(--g600); }
+  .kv .v { margin-top: 4px; font-family: var(--disp); font-size: 26px; font-weight: 700; color: var(--blue-700); line-height: 1.2; }
+  .kv .v small { font-family: var(--font); font-size: 13px; font-weight: 400; color: var(--g600); margin-left: 4px; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .box { background: #fff; border: 1px solid var(--g300); }
+  .box .bh { padding: 10px 14px; border-bottom: 1px solid var(--g200); display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px; }
+  .box .bh span { font-weight: 400; font-size: 13.5px; color: var(--g700); }
+  .box .bb { padding: 12px 14px; }
+  .axis { fill: var(--g700); font-size: 13px; font-family: var(--font); }
+  .gl { stroke: var(--g200); }
+
+  .foot { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--g300); font-size: 13.5px; color: var(--g700); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header class="gnb">
+  <div class="gnb-in">
+    <div class="brand">
+      <img src="company-logo.png" alt="Company">
+      <div class="t">통합조사플랫폼</div>
+    </div>
+    <nav class="menu"><a>조사관리</a><a class="on">조사현황</a><a>통계분석</a><a>환류관리</a><a>대상자관리</a><a>시스템관리</a></nav>
+    <div class="user"><b>[기관명] 경제진흥과</b> 담당자 · 로그아웃</div>
+  </div>
+</header>
+<nav class="snb">
+  <div class="snb-in"><a class="on">현황 요약</a><a>응답 추이</a><a>문항별 통계</a><a>교차분석</a><a>결과 내보내기</a></div>
+</nav>
+
+<main class="wrap">
+  <div class="ph">
+    <div>
+      <div class="crumb">조사현황 › <b>현황 요약</b></div>
+      <h1>2026년 지역 소상공인 디지털 전환 실태조사</h1>
+    </div>
+    <div style="font-size:14px;color:var(--g700)">갱신 <b class="num" style="color:var(--g900)">2026.10.19 17:00</b> · 60초마다 자동</div>
+  </div>
+
+  <div class="cond">
+    <div class="f">
+      <div><label>조사</label><span class="sel">2026 소상공인 디지털 전환 <i class="chev"></i></span></div>
+      <div><label>기간</label><span class="sel" style="min-width:210px">2026.09.22 ~ 2026.10.31 <i class="chev"></i></span></div>
+      <div><label>응답자군</label><span class="sel" style="min-width:110px">전체 <i class="chev"></i></span></div>
+    </div>
+    <div class="b"><span class="btn">조회</span><span class="btn btn--w">새로고침</span><span class="btn btn--w">인쇄</span></div>
+  </div>
+
+  <section class="sec">
+    <div class="sec-h"><h2>기본 정보</h2><span class="u">읽기 전용 현황판 · 개별 응답 내용은 표시하지 않음</span></div>
+    <table class="grid info">
+      <tbody>
+        <tr><th>조사명</th><td class="l" colspan="3">2026년 지역 소상공인 디지털 전환 실태조사</td><th>진행 상태</th><td class="l">진행 중 (잔여 12일)</td></tr>
+        <tr><th>조사 기간</th><td class="l num">2026.09.22 ~ 2026.10.31</td><th>누적 응답</th><td class="l num"><b>1,062</b>명 / 목표 1,500명 (70.8%)</td><th>오늘 응답</th><td class="l num"><b>38</b>명 (어제 41명)</td></tr>
+        <tr><th>마지막 응답</th><td class="l num">2026.10.19 16:52</td><th>고유 IP</th><td class="l num">1,017 (중복 응답 차단 기준)</td><th>조사 방법</th><td class="l">온라인(URL·QR) · 전화 병행</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>응답자군별 목표 달성</h2><span class="u">목표 대비 응답 · 갱신 시각 기준</span></div>
+    <table class="grid">
+      <thead><tr><th class="l" style="width:200px">응답자군</th><th>목표</th><th>응답</th><th>달성률</th><th class="l" style="width:38%">달성률 그래프</th><th>목표(70%) 달성</th></tr></thead>
+      <tbody id="reg"></tbody>
+    </table>
+  </section>
+
+  <section class="sec two">
+    <div class="box">
+      <div class="bh">최근 14일 일별 응답<span>10.06 ~ 10.19 · 단위: 명</span></div>
+      <div class="bb"><svg id="line" width="100%" height="220" viewBox="0 0 600 220" style="display:block"></svg></div>
+    </div>
+    <div class="box">
+      <div class="bh">오늘 시간대별 응답<span>10.19 · 누적 38명</span></div>
+      <div class="bb"><svg id="hours" width="100%" height="220" viewBox="0 0 600 220" style="display:block"></svg></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>응답자 구성</h2><span class="u">완료 응답 1,062명 기준 · 단위: 명, %</span></div>
+    <div class="two">
+      <table class="grid"><thead><tr><th class="l" style="width:110px">구분</th><th class="l">항목</th><th style="width:80px">응답</th><th style="width:80px">비율</th></tr></thead><tbody id="demo1"></tbody></table>
+      <table class="grid"><thead><tr><th class="l" style="width:110px">구분</th><th class="l">항목</th><th style="width:80px">응답</th><th style="width:80px">비율</th></tr></thead><tbody id="demo2"></tbody></table>
+    </div>
+  </section>
+
+  <div class="foot"><span>Company 통합조사플랫폼 v3.1 · [기관명] 경제진흥과</span><span>본 화면의 수치는 갱신 시각 기준이며 최종 보고서 수치와 다를 수 있음</span></div>
+</main>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function txt(e,s){e.textContent=s;return e;}
+
+  /* 응답자군별 목표 */
+  var reg=[['소상공인 사업주',900,614],['종사자(직원)',400,301],['예비 창업자',200,147]];
+  var tb=document.getElementById('reg'),T=[0,0];
+  reg.forEach(function(r){var p=r[2]/r[1]*100;T[0]+=r[1];T[1]+=r[2];
+    tb.insertAdjacentHTML('beforeend','<tr><td class="l">'+r[0]+'</td><td class="num">'+r[1].toLocaleString()+'</td><td class="num">'+r[2]+'</td><td class="num">'+(p<70?'<span class="low">'+p.toFixed(1)+'</span>':p.toFixed(1))+'</td><td class="l"><span class="bar" style="width:'+Math.round(p*3.4)+'px"></span><span class="num" style="font-size:13px;color:var(--g700)">'+p.toFixed(1)+'%</span></td><td>'+(p>=70?'달성':'<span class="low">미달</span>')+'</td></tr>');});
+  var tp=T[1]/T[0]*100;
+  tb.insertAdjacentHTML('beforeend','<tr class="sum"><td class="l">합계</td><td class="num">'+T[0].toLocaleString()+'</td><td class="num">'+T[1].toLocaleString()+'</td><td class="num">'+tp.toFixed(1)+'</td><td class="l"><span class="bar" style="width:'+Math.round(tp*3.4)+'px;background:var(--blue-900)"></span><span class="num" style="font-size:13px">'+tp.toFixed(1)+'%</span></td><td>달성</td></tr>');
+
+  /* 최근 14일 일별 — 세로 막대 */
+  var d=[52,47,39,35,44,41,38,36,33,31,42,40,41,38];
+  var lab=['10.06','07','08','09','10','11','12','13','14','15','16','17','18','19'];
+  var svg=document.getElementById('line');
+  var W=600,H=220,pl=34,pr=10,pt=18,pb=26,iw=W-pl-pr,ih=H-pt-pb,max=60;
+  [0,20,40,60].forEach(function(v){var y=pt+ih-(v/max)*ih;svg.appendChild(el('line',{x1:pl,x2:W-pr,y1:y,y2:y,'class':'gl'}));svg.appendChild(txt(el('text',{x:pl-6,y:y+4,'text-anchor':'end','class':'axis'}),v));});
+  var bw=iw/d.length,w=Math.round(bw*0.55);
+  d.forEach(function(v,i){var x=Math.round(pl+i*bw+(bw-w)/2),h=(v/max)*ih;
+    svg.appendChild(el('rect',{x:x,y:pt+ih-h,width:w,height:h,fill:i===d.length-1?'#13294D':'#2E6BFF'}));
+    svg.appendChild(txt(el('text',{x:x+w/2,y:pt+ih-h-5,'text-anchor':'middle','class':'axis',style:'font-size:12px;fill:#1E2124'}),v));
+    svg.appendChild(txt(el('text',{x:x+w/2,y:H-7,'text-anchor':'middle','class':'axis'}),lab[i]));});
+
+  /* 오늘 시간대별 */
+  var hv=[0,0,0,0,0,0,0,1,2,4,5,4,3,3,4,3,4,3,2,0,0,0,0,0];
+  var sh=document.getElementById('hours'),hw=iw/24,mx=6;
+  [0,2,4,6].forEach(function(v){var y=pt+ih-(v/mx)*ih;sh.appendChild(el('line',{x1:pl,x2:W-pr,y1:y,y2:y,'class':'gl'}));sh.appendChild(txt(el('text',{x:pl-6,y:y+4,'text-anchor':'end','class':'axis'}),v));});
+  hv.forEach(function(v,i){var x=pl+i*hw+2,h=(v/mx)*ih;sh.appendChild(el('rect',{x:x,y:pt+ih-Math.max(h,1),width:hw-4,height:Math.max(h,1),fill:v?'#2E6BFF':'#D1D5D9'}));
+    if(i%3===0)sh.appendChild(txt(el('text',{x:x+(hw-4)/2,y:H-7,'text-anchor':'middle','class':'axis'}),i+'시'));});
+
+  /* 응답자 구성 */
+  var N=1062;
+  var g1=[['업종',[['음식·숙박',318],['도·소매',276],['서비스',241],['제조·기타',227]]],['사업 기간',[['3년 미만',204],['3~10년',457],['10년 이상',401]]]];
+  var g2=[['성별',[['남성',592],['여성',470]]],['연령대',[['30대 이하',148],['40대',287],['50대',392],['60대 이상',235]]]];
+  function fill(id,gs){var b=document.getElementById(id);gs.forEach(function(g){g[1].forEach(function(r,i){b.insertAdjacentHTML('beforeend','<tr>'+(i===0?'<td class="l" rowspan="'+g[1].length+'" style="background:var(--g50);font-weight:600">'+g[0]+'</td>':'')+'<td class="l">'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="num">'+(r[1]/N*100).toFixed(1)+'</td></tr>');});});}
+  fill('demo1',g1);fill('demo2',g2);
+})();
+</script>
+</body>
+</html>

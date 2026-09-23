@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>요약 — 대학원생의 학업 스트레스와 자기효능감의 관계</title>
+<link rel="stylesheet" href="css/svy.css">
+<style>.axis{fill:#4E5968;font-size:13px;font-weight:500}.val-lbl{fill:#191F28;font-weight:700}  .metrics--4 { grid-template-columns: repeat(4, 1fr); }
+  .chart-h { display: flex; align-items: center; justify-content: space-between; padding: 4px 0 6px; }
+  .chart-h h2 { font-size: 15px; font-weight: 700; }
+  .chart-h .sub { font-size: 14px; color: var(--ink-2); font-weight: 500; }
+  .col { display: flex; flex-direction: column; gap: 16px; }
+  .pt { font-size: 15px; font-weight: 700; }
+  .goal { display: flex; flex-direction: column; gap: 16px; padding: 10px 18px 12px; }
+  .g .gt { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 7px; }
+  .g .gt b { font-weight: 700; }
+  .g .gb { height: 10px; background: var(--gray-100); }
+  .g .gb i { display: block; height: 100%; background: var(--navy-600); }
+  .pb--groups { padding: 0 0 12px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 0; }
+  .grp { padding-top: 6px; }
+  .grp:nth-child(odd) { border-right: 1px solid var(--line); }
+  .grp-h { font-size: 14px; font-weight: 700; color: var(--ink); padding: 8px 18px 6px; background: var(--thead); border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+  .grp .rows { padding: 0 18px; }
+  .foot-note { display: flex; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+</style>
+<style>
+  /* v6: 다크 헤더 밴드 + 패널 오버랩, 깊이(경계+미세 그림자), 정밀 타이포, 앰버 1점 */
+  :root { --page:#F2F4F6; --panel:#FFFFFF; --line:#E5E8EB; --line-2:#E5E8EB; --ink:#191F28; --ink-2:#4E5968; --thead:#F2F4F6; --up:#15803D; --down:#B91C1C; --amber:#C2410C; --band:#132A47; --band-2:#0F2239; }
+  body { color: var(--ink); font-size: 15px; }
+  body { background: var(--page); }
+
+  .band { background: linear-gradient(180deg, var(--band) 0%, var(--band-2) 100%); color: #fff; }
+  .band-in { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .band .nav { height: 56px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .brand-lockup { display: inline-flex; align-items: center; gap: 10px; }
+  .brand-lockup .mark { display: block; box-shadow: 0 1px 2px rgba(0,0,0,.25); border-radius: 8px; }
+  .band .wm { font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: #fff; }
+  .wm-div { width: 1px; height: 16px; background: rgba(255,255,255,.28); margin: 0 2px; }
+  .wm-sub { font-weight: 500; font-size: 15px; color: rgba(255,255,255,.85); letter-spacing: -0.01em; }
+  .band .nav .r { display: flex; gap: 8px; }
+  .ctl { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border: 1px solid var(--gray-400); border-radius: 2px; background: linear-gradient(to bottom, #FFFFFF, #F1F3F5); font-size: 14px; font-weight: 600; color: var(--gray-800); white-space: nowrap; box-shadow: 0 1px 1px rgba(16,24,40,.06); }
+  .ctl:active { box-shadow: inset 0 1px 2px rgba(16,24,40,.25); }
+  .ctl .chev { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .6; transform: translateY(-2px) rotate(45deg); margin-left: 3px; }
+  .ctl--dark { background: linear-gradient(to bottom, #1F3A5C, #16304F); border-color: #0B1E35; color: #fff; box-shadow: 0 1px 1px rgba(0,0,0,.25); }
+  .ctl--quiet { border-color: transparent; background: none; color: rgba(255,255,255,.85); box-shadow: none; font-weight: 500; font-size: 14px; }
+
+  .band .title { padding: 30px 0 84px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  .band .title h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #fff; }
+  .band .title .meta { margin-top: 10px; display: flex; align-items: center; gap: 16px; font-size: 14px; color: rgba(255,255,255,.78); font-weight: 500; }
+  .band .title .meta .live { color: #fff; font-weight: 600; }
+  .band .title .r { display: flex; gap: 8px; padding-bottom: 2px; }
+
+  .page { max-width: 1120px; margin: -64px auto 0; padding: 0 24px 56px; position: relative; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 1px 2px rgba(16,24,40,.05), 0 1px 1px rgba(16,24,40,.03); }
+  .panel--hero { box-shadow: 0 8px 24px -12px rgba(15,34,57,.35), 0 1px 2px rgba(16,24,40,.06); }
+
+  /* 지표 스트립 */
+  .metrics { display: grid; grid-template-columns: repeat(6, 1fr); padding: 10px; gap: 4px; border-bottom: 1px solid var(--line-2); }
+  .m { padding: 12px 12px 14px; border-radius: 3px; position: relative; }
+  .m + .m::before { content: ""; position: absolute; left: -2px; top: 14px; bottom: 14px; width: 1px; background: var(--line-2); }
+  .m.on { background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--line); }
+  .m.on::before, .m.on + .m::before { display: none; }
+  .m .k { font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  .m .v { margin-top: 8px; display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+  .m .v b { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; color: var(--ink); }
+  .m .v small { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .d-up { color: var(--up); } .d-dn { color: var(--down); } .d-nt { color: var(--ink-2); font-weight: 500; }
+
+  .chart { padding: 14px 20px 10px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .ph { display: flex; align-items: center; justify-content: space-between; padding: 0 18px; height: 46px; border-bottom: 1px solid var(--line-2); }
+  .mtabs { display: flex; gap: 18px; height: 100%; }
+  .mtabs span { display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: var(--ink-2); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .mtabs span.on { color: var(--ink); border-bottom-color: var(--ink); }
+  .ph .x { font-size: 14px; color: var(--ink-2); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .pb { padding: 8px 0 8px; }
+  .cols { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 9px 18px; background: var(--thead); border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+
+  .rows { display: flex; flex-direction: column; gap: 4px; padding: 0 18px; }
+  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; height: 34px; font-size: 15px; }
+  .row .lab { position: relative; height: 100%; display: flex; align-items: center; padding: 0 10px; border-radius: 2px; overflow: hidden; }
+  .row .lab i { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--navy-100), #DCE4EE); border-radius: 2px; }
+  .row .lab span { position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 500; }
+  .row .lab .qn { color: var(--ink); margin-right: 6px; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .row .val { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; min-width: 96px; color: var(--ink); font-size: 15px; }
+  .row .val small { font-weight: 500; color: var(--ink-2); margin-left: 8px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="band-in">
+    <div class="nav">
+      <a class="brand-lockup">
+        <svg class="mark" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+          <defs><linearGradient id="mk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5FC8E8"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs>
+          <rect width="30" height="30" rx="8" fill="url(#mk)"/>
+          <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round">
+            <rect x="8" y="16" width="4.4" height="7" rx="1"/>
+            <rect x="12.8" y="12" width="4.4" height="11" rx="1"/>
+            <rect x="17.6" y="7" width="4.4" height="16" rx="1"/>
+          </g>
+        </svg>
+        <span class="wm">[논문통계브랜드]</span>
+        <span class="wm-div"></span>
+        <span class="wm-sub">설문조사</span>
+      </a>
+      <div class="r">
+        <span class="ctl ctl--quiet">읽기 전용 · 11.30까지</span>
+        <span class="ctl ctl--dark">담당자에게 문의</span>
+      </div>
+    </div>
+    <div class="title">
+      <div>
+        <h1>박사학위논문 연구 설문 (한빛대학교 대학원 안전공학과)</h1>
+        <div class="meta">
+          <span class="live">수집 중</span>
+          <span class="num">2026.09.15 – 10.31</span>
+          <span>갱신 <span class="num">2026.09.20 15:05</span> · 60초마다 자동</span>
+        </div>
+      </div>
+      <div class="r">
+        <span class="ctl ctl--dark">응답자군 전체 <i class="chev"></i></span>
+        <span class="ctl ctl--dark">기간 <i class="chev"></i></span>
+        <span class="ctl">새로고침</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <div class="panel panel--hero">
+    <div class="metrics metrics--4">
+      <div class="m on"><div class="k">누적 응답</div><div class="v"><b class="num">213</b><small class="d-nt">목표 450 · 47.3%</small></div></div>
+      <div class="m"><div class="k">오늘 응답</div><div class="v"><b class="num">0</b><small class="d-nt">어제 0</small></div></div>
+      <div class="m"><div class="k">마지막 응답</div><div class="v"><b class="num">09.18 22:59</b></div></div>
+      <div class="m"><div class="k">고유 IP</div><div class="v"><b class="num">176</b><small class="d-nt">중복 응답 차단 기준</small></div></div>
+    </div>
+    <div class="chart">
+      <div class="chart-h"><h2>최근 14일 일별 응답</h2><span class="sub num">09.07 – 09.20</span></div>
+      <svg id="bars" width="100%" height="240" viewBox="0 0 1060 240" style="display:block"></svg>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="ph"><h2 class="pt">응답자군별 목표 달성</h2><span class="x num">213 / 450</span></div>
+      <div class="pb">
+        <div class="goal">
+          <div class="g"><div class="gt"><span>종사자</span><span class="num"><b>86</b> / 250 · 34.4%</span></div><div class="gb"><i style="width:34.4%"></i></div></div>
+          <div class="g"><div class="gt"><span>일반인</span><span class="num"><b>127</b> / 200 · 63.5%</span></div><div class="gb"><i style="width:63.5%"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><h2 class="pt">오늘 시간대별 응답</h2><span class="x num">0건 · 어제 0건</span></div>
+      <div class="pb">
+        <svg id="hours" width="100%" height="120" viewBox="0 0 500 120" preserveAspectRatio="none" style="display:block;padding:0 18px;box-sizing:border-box"></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <div class="ph"><h2 class="pt">응답자 구성</h2><span class="x num">완료 213명 기준</span></div>
+    <div class="pb pb--groups" id="demo"></div>
+  </div>
+
+  <div class="foot-note">
+    <span>읽기 전용 현황판입니다. 개별 응답 내용은 표시하지 않으며, 원자료는 조사 종료 후 담당 연구원이 납품합니다.</span>
+    <span class="num">링크 유효기간 2026.11.30</span>
+  </div>
+
+</main>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function txt(e,s){e.textContent=s;return e;}
+  var css=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();};
+
+  var days=['09.07','08','09','10','11','12','13','14','15','16','17','18','19','20'];
+  var vals=[0,0,0,0,0,0,0,0,1,72,81,59,0,0];
+  var svg=document.getElementById('bars');
+  var W=1060,H=240,pl=36,pr=16,pt=22,pb=30,iw=W-pl-pr,ih=H-pt-pb,max=100;
+  [0,25,50,75,100].forEach(function(v){var y=pt+ih-(v/max)*ih;svg.appendChild(el('line',{x1:pl,x2:W-pr,y1:y,y2:y,stroke:css('--line-2'),'stroke-width':1}));svg.appendChild(txt(el('text',{x:pl-10,y:y+4,'text-anchor':'end','class':'axis'}),v));});
+  var bw=iw/vals.length,w=Math.round(bw*0.5);
+  vals.forEach(function(v,i){var x=Math.round(pl+i*bw+(bw-w)/2),h=(v/max)*ih;
+    if(v>0){svg.appendChild(el('rect',{x:x,y:pt+ih-h,width:w,height:h,fill:i===vals.length-1?css('--navy-700'):css('--navy-500')}));svg.appendChild(txt(el('text',{x:x+w/2,y:pt+ih-h-7,'text-anchor':'middle','class':'val-lbl'}),v));}
+    else svg.appendChild(el('rect',{x:x,y:pt+ih-2,width:w,height:2,fill:i===vals.length-1?css('--navy-700'):css('--gray-300')}));
+    svg.appendChild(txt(el('text',{x:x+w/2,y:H-8,'text-anchor':'middle','class':'axis',style:i===vals.length-1?'font-weight:700;fill:#191F28':''}),days[i]));});
+
+  var hv=document.getElementById('hours'),hw=500/24;
+  for(var i=0;i<24;i++){hv.appendChild(el('rect',{x:i*hw+3,y:92,width:hw-6,height:2,fill:css('--gray-300')}));}
+  [0,3,6,9,12,15,18,21].forEach(function(h){hv.appendChild(txt(el('text',{x:h*hw+hw/2,y:113,'text-anchor':'middle','class':'axis'}),h+'시'));});
+
+  var groups=[
+    ['종사 경험',[['현재 종사하고 있다',70],['과거 종사하였다',16],['종사한 경험이 없다',127]]],
+    ['성별',[['남성',153],['여성',60],['응답하지 않음',0]]],
+    ['연령대',[['20대',7],['30대',26],['40대',55],['50대',86],['60대 이상',39]]],
+    ['사고 참여 경험',[['없음',168],['1회',16],['2회 이상',29]]]
+  ];
+  var dm=document.getElementById('demo'),N=213;
+  groups.forEach(function(g){var mx=Math.max.apply(null,g[1].map(function(r){return r[1];}));
+    var h='<div class="grp"><div class="grp-h">'+g[0]+'</div><div class="rows">';
+    g[1].forEach(function(r){h+='<div class="row"><div class="lab"><i style="width:'+(mx?r[1]/mx*100:0)+'%"></i><span>'+r[0]+'</span></div><div class="val num">'+r[1]+'<small>'+(r[1]/N*100).toFixed(1)+'%</small></div></div>';});
+    dm.insertAdjacentHTML('beforeend',h+'</div></div>');});
+})();
+</script>
+</body>
+</html>

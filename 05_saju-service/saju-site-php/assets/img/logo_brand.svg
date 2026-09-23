@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="[사주브랜드] 사주박사 로고">
+  <defs>
+    <radialGradient id="sun" cx="42%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#ffe9a8"/>
+      <stop offset="45%" stop-color="#f2c96a"/>
+      <stop offset="80%" stop-color="#c9862a"/>
+      <stop offset="100%" stop-color="#9a5f14"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="#e6cf9f" stop-opacity="0"/>
+      <stop offset="92%" stop-color="#e6cf9f" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#e6cf9f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff3cf"/>
+      <stop offset="50%" stop-color="#c9a86a"/>
+      <stop offset="100%" stop-color="#8a5f1e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 후광 -->
+  <circle cx="110" cy="110" r="108" fill="url(#glow)"/>
+
+  <!-- 햇살 12방 -->
+  <g stroke="#c9a86a" stroke-width="3" stroke-linecap="round" opacity=".8">
+    <line x1="110" y1="8"  x2="110" y2="24"/>
+    <line x1="110" y1="196" x2="110" y2="212"/>
+    <line x1="8"  y1="110" x2="24" y2="110"/>
+    <line x1="196" y1="110" x2="212" y2="110"/>
+    <line x1="38" y1="38" x2="49" y2="49"/>
+    <line x1="171" y1="171" x2="182" y2="182"/>
+    <line x1="38" y1="182" x2="49" y2="171"/>
+    <line x1="171" y1="49" x2="182" y2="38"/>
+    <line x1="60" y1="17" x2="66" y2="32"/>
+    <line x1="154" y1="188" x2="160" y2="203"/>
+    <line x1="17" y1="160" x2="32" y2="154"/>
+    <line x1="188" y1="66" x2="203" y2="60"/>
+  </g>
+
+  <!-- 태양 원반 -->
+  <circle cx="110" cy="110" r="78" fill="url(#sun)" stroke="url(#ring)" stroke-width="4"/>
+  <circle cx="110" cy="110" r="70" fill="none" stroke="#8a5f1e" stroke-width="1" opacity=".5"/>
+
+  <!-- 삼족오 (양식화) -->
+  <g fill="#221407">
+    <!-- 올린 날개 -->
+    <path d="M80,96 C84,62 122,46 152,58 C132,62 120,70 114,84 C102,78 88,86 80,96 Z"/>
+    <!-- 몸통 -->
+    <path d="M76,96 C88,78 118,76 132,92 C142,104 138,120 124,128 C106,138 84,130 76,114 C72,106 72,102 76,96 Z"/>
+    <!-- 머리·부리 -->
+    <circle cx="76" cy="84" r="11"/>
+    <path d="M67,82 L48,87 L68,92 Z"/>
+    <!-- 꼬리 깃 3가닥 -->
+    <path d="M130,116 C146,118 158,128 164,142 C152,136 142,134 132,134 Z"/>
+    <path d="M126,124 C138,132 144,142 146,154 C136,146 128,140 120,136 Z"/>
+    <path d="M118,130 C124,140 126,150 124,160 C118,150 112,142 108,138 Z"/>
+  </g>
+  <!-- 눈 -->
+  <circle cx="79" cy="82" r="2.6" fill="#f2c96a"/>
+
+  <!-- 세 다리 -->
+  <g stroke="#221407" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M92,128 L84,150 M84,150 L76,156 M84,150 L90,158"/>
+    <path d="M104,132 L104,156 M104,156 L96,163 M104,156 L112,163"/>
+    <path d="M116,128 L124,148 M124,148 L118,157 M124,148 L132,154"/>
+  </g>
+</svg>
